@@ -141,32 +141,6 @@ export default function Form() {
     }
   };
 
-   const handleSubmit3 = async (e: FormEvent) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append('productName', formData.productName);
-    data.append('token', tkn);
-
-
-
-    try {
-      const response = await fetch('/api/addCategory', {
-        method: 'POST',
-        body: data,
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
-      console.log('Success:', result);
-      alert('Product added successfully!');
-    } catch (error) {
-      console.error('Error:', error);
-      alert('There was a problem with the submission.');
-    }
-  };
   const [data, setData] = useState<any>([])
   const [dataDiscountTypes, setDiscountTypes] = useState<any>([])
 
@@ -306,19 +280,20 @@ export default function Form() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <div className="min-h-screen flex items-start mx-auto px-4 pt-32 pb-10 justify-center bg-gray-100">
-            <form onSubmit={handleSubmit3} className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
+            <form onSubmit={handleSubmit2} className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
             <h2 className="text-2xl font-bold mb-6">Product Category</h2>
-            <div className="w-full md:w-1/2 px-3 mb-5 md:mb-0">
-                <label htmlFor="productName" className="block text-gray-700 font-bold mb-2">Category Name</label>
+            <div className="flex flex-wrap -mx-3 mb-4 space-y-6">
+              <div className="w-full px-3">
+                <label htmlFor="image" className="block text-gray-700 font-bold mb-2">Theme Image</label>
                 <input
-                  type="text"
-                  id="productName"
-                  name="productName"
-                  value={formData.productName}
+                  type="file"
+                  id="image"
+                  name="image"
                   onChange={handleChange}
                   className="border border-gray-300 p-2 w-full rounded-lg"
                 />
               </div>
+            </div>
             <button type="submit" className="bg-[#752A78] text-white px-4 mt-4 py-2 rounded-lg hover:bg-blue-700">
               Submit
             </button>

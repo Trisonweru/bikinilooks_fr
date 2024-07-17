@@ -141,16 +141,23 @@ export default function Form() {
     }
   };
 
-   const handleSubmit3 = async (e: FormEvent) => {
+   const handleSubmi3 = async (e: FormEvent) => {
     e.preventDefault();
     const data = new FormData();
     data.append('productName', formData.productName);
+    data.append('productCategory', formData.productCategory);
+    data.append('productDescription', formData.productDescription);
+    data.append('price', formData.price);
+    data.append('availableStock', formData.availableStock);
+    data.append('discount', formData.discount);
+    data.append('discountType', formData.discountType);
+    data.append('image', formData.image as unknown as File);
     data.append('token', tkn);
 
 
 
     try {
-      const response = await fetch('/api/addCategory', {
+      const response = await fetch('/api/addProduct', {
         method: 'POST',
         body: data,
       });

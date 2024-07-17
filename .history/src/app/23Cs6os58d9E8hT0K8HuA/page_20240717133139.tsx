@@ -150,7 +150,7 @@ export default function Form() {
 
 
     try {
-      const response = await fetch('/api/addCategory', {
+      const response = await fetch('/api/addProduct', {
         method: 'POST',
         body: data,
       });

@@ -141,32 +141,6 @@ export default function Form() {
     }
   };
 
-   const handleSubmit3 = async (e: FormEvent) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append('productName', formData.productName);
-    data.append('token', tkn);
-
-
-
-    try {
-      const response = await fetch('/api/addCategory', {
-        method: 'POST',
-        body: data,
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
-      console.log('Success:', result);
-      alert('Product added successfully!');
-    } catch (error) {
-      console.error('Error:', error);
-      alert('There was a problem with the submission.');
-    }
-  };
   const [data, setData] = useState<any>([])
   const [dataDiscountTypes, setDiscountTypes] = useState<any>([])
 
