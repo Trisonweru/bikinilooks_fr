@@ -20,7 +20,6 @@ function NewArrivals() {
 
   const [loading, setLoading] = React.useState<any>(false)
 
-
   const getProduct = async () => {
     setLoading(true)
     const res = await axios.post('/api/category', { category: pathname?.split("/")[2] });
@@ -52,8 +51,7 @@ function NewArrivals() {
         ))}
       </div> : <div className='w-full flex justify-center items-center ' ><ImSpinner2 className='animate-spin' /></div>}
 
-      {!loading && <div className='w-full flex justify-center items-center text-gray-600 text-sm' >No products available</div> }
-
+      {data==null && !loading&&<div className='w-full flex justify-center items-center ' >No products available</div> }
     </div>
 
   )

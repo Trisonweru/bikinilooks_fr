@@ -31,6 +31,8 @@ function NewArrivals() {
     }
   }
 
+  console.log(data)
+
   return (
     <div className="container mx-auto px-4 pt-32 pb-10 bg-white min-h-screen">
       <div className="relative bg-white px-4 w-fit mx-auto mb-10">
@@ -52,8 +54,7 @@ function NewArrivals() {
         ))}
       </div> : <div className='w-full flex justify-center items-center ' ><ImSpinner2 className='animate-spin' /></div>}
 
-      {!loading && <div className='w-full flex justify-center items-center text-gray-600 text-sm' >No products available</div> }
-
+      {data==null && !loading||data?.length && !loading&&<div className='w-full flex justify-center items-center ' >No products available</div> }
     </div>
 
   )

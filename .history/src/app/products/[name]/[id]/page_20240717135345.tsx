@@ -52,8 +52,7 @@ function NewArrivals() {
         ))}
       </div> : <div className='w-full flex justify-center items-center ' ><ImSpinner2 className='animate-spin' /></div>}
 
-      {!loading && <div className='w-full flex justify-center items-center text-gray-600 text-sm' >No products available</div> }
-
+      {data==null && !loading||data?.length && !loading&&<div className='w-full flex justify-center items-center ' >No products available</div> }
     </div>
 
   )

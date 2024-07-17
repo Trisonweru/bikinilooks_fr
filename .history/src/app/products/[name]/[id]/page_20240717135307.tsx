@@ -32,7 +32,7 @@ function NewArrivals() {
   }
 
   return (
-    <div className="container mx-auto px-4 pt-32 pb-10 bg-white min-h-screen">
+    <div className="container mx-auto px-4 pt-32 pb-10 bg-white min-h-screen">xx
       <div className="relative bg-white px-4 w-fit mx-auto mb-10">
         <h2 className="text-lg font-semibold text-[#752A78] uppercase text-center border-2 border-gray-300 px-4 py-2">
           {pathname?.split("/")[1].split("_").join(" ")}
@@ -52,8 +52,7 @@ function NewArrivals() {
         ))}
       </div> : <div className='w-full flex justify-center items-center ' ><ImSpinner2 className='animate-spin' /></div>}
 
-      {!loading && <div className='w-full flex justify-center items-center text-gray-600 text-sm' >No products available</div> }
-
+      {data==null && !loading&&<div className='w-full flex justify-center items-center ' >No products available</div> }
     </div>
 
   )

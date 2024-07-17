@@ -296,7 +296,7 @@ export default function Form() {
                 />
               </div>
             </div>
-            <button type="submit" className="bg-[#752A78] text-white px-4 mt-4 py-2 rounded-lg hover:bg-[#5b1e5d]">
+            <button type="submit" className="bg-[#752A78] text-white px-4 mt-4 py-2 rounded-lg hover:bg-[bg-[#5b1e5d]">
               Submit
             </button>
           </form>
@@ -341,7 +341,7 @@ export default function Form() {
                 />
               </div>
             </div>
-            <button type="submit" className="bg-[#752A78] text-white px-4 mt-4 py-2 rounded-lg hover:bg-[#5b1e5d]">
+            <button type="submit" className="bg-[#752A78] text-white px-4 mt-4 py-2 rounded-lg hover:bg-blue-700">
               Submit
             </button>
           </form>

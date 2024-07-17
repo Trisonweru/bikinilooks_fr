@@ -20,7 +20,6 @@ function NewArrivals() {
 
   const [loading, setLoading] = React.useState<any>(false)
 
-
   const getProduct = async () => {
     setLoading(true)
     const res = await axios.post('/api/category', { category: pathname?.split("/")[2] });
@@ -31,6 +30,7 @@ function NewArrivals() {
     }
   }
 
+
   return (
     <div className="container mx-auto px-4 pt-32 pb-10 bg-white min-h-screen">
       <div className="relative bg-white px-4 w-fit mx-auto mb-10">
@@ -39,7 +39,7 @@ function NewArrivals() {
         </h2>
       </div>
 
-      {!loading ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {data ? <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data?.map((card: any) => (
           <ServiceCard
             key={card.ID}
@@ -51,9 +51,6 @@ function NewArrivals() {
           />
         ))}
       </div> : <div className='w-full flex justify-center items-center ' ><ImSpinner2 className='animate-spin' /></div>}
-
-      {!loading && <div className='w-full flex justify-center items-center text-gray-600 text-sm' >No products available</div> }
-
     </div>
 
   )

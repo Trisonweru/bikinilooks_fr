@@ -31,6 +31,8 @@ function NewArrivals() {
     }
   }
 
+  console.log(data)
+
   return (
     <div className="container mx-auto px-4 pt-32 pb-10 bg-white min-h-screen">
       <div className="relative bg-white px-4 w-fit mx-auto mb-10">

@@ -76,7 +76,7 @@ export default function HomePage() {
         </div>
 
         <div className='mt-8 pb-10'>
-          <ProductSection slides={data} loading={loading} />
+          <ProductSection slides={data} />
         </div>
       </section>
 

@@ -44,13 +44,11 @@ export default function HomePage() {
   }, []);
 
   const getProducts = async () => {
-    setLoading(true)
     const res2 = await fetch('/api/hello');
     const res = await res2.json()
 
     if (res?.data?.status == 200) {
       setData(res?.data?.payload)
-      setLoading(true)
     }
   }
 
@@ -76,7 +74,7 @@ export default function HomePage() {
         </div>
 
         <div className='mt-8 pb-10'>
-          <ProductSection slides={data} loading={loading} />
+          <ProductSection slides={data} />
         </div>
       </section>
 

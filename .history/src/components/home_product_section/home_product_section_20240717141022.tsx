@@ -11,7 +11,7 @@ function ProductSection({ slides, loading }: any) {
     <>{slides?.map((item: {
       category: ReactNode;
       data: any; 
-      title:any;
+      title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined;
     },index:number) => <div key={index} className="bg-[#fff] py-0 flex flex-col space-y-8 items-center">
         <div className="relative flex items-center justify-center mt-16">
           <div className="absolute inset-0 flex items-center justify-center">

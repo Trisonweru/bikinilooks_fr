@@ -42,6 +42,7 @@ const ProductDetails = ({ reviews, relatedProducts }: any) => {
 
   }, []);
 
+
   const getProduct = async () => {
     const res = await axios.post('/api/product', { category: router?.id });
 
