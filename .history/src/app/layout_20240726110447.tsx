@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon/favicon.ico',
     shortcut: '/favicon/favicon.ico',
-    apple: '/favicon/favicon.ico',
+    apple: '/favicon/apple-touch-icon.png',
   },
   manifest: `/favicon/site.webmanifest`,
   openGraph: {
