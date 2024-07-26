@@ -266,7 +266,7 @@ export default function Form() {
       headerName: 'SHARE',
       width: 230,
       renderCell: (params) => {
-        const productUrl = `https://www.bikinilooks.com/product/${params.row.ID}`;
+        const productUrl = `https://www.bikinilooks.com//product/${params.row.ID}`;
         const productName = params.row.product_name;
         const productImage = params.row.product_image;
         const productPrice = `Ksh ${params.row.price}`;
