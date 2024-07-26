@@ -205,7 +205,7 @@ export default function Form() {
 
     if (res?.data?.status == 200) {
       setProducts(res?.data?.payload)
-      setLoading(false)
+      setLoading(true)
     }
   }
 

@@ -205,7 +205,7 @@ export default function Form() {
 
     if (res?.data?.status == 200) {
       setProducts(res?.data?.payload)
-      setLoading(false)
+      setLoading(true)
     }
   }
 
@@ -307,7 +307,7 @@ export default function Form() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          {!loading ? <div className="min-h-screen flex flex-col px-4 py-4 pb-10 justify-start bg-gray-100">
+          {!loading?<div className="min-h-screen flex flex-col px-4 py-4 pb-10 justify-start bg-gray-100">
             {products?.map((item: any, index: any) =>
               <Accordion key={index}>
                 <AccordionSummary
@@ -322,9 +322,9 @@ export default function Form() {
                 </AccordionDetails>
               </Accordion>
             )}
-          </div> : <div className="min-h-screen flex flex-col px-4 py-4 pb-10 justify-center items-center bg-gray-100">
+          </div>:<div className="min-h-screen flex flex-col px-4 py-4 pb-10 justify-start bg-gray-100">
             <ImSpinner2 className='animate-spin' />
-          </div>}
+            </div>}
 
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
