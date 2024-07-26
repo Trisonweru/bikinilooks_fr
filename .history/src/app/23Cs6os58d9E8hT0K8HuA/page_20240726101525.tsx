@@ -214,11 +214,11 @@ export default function Form() {
 
   const handleDelete = async (id: any) => {
     console.log(id)
-    const res = await axios.post('/api/delete', { id: id, token:tkn });
+    // setRows(rows.filter((row) => row.id !== id));
+    const res = await axios.post('/api/delete', { id: router?.id });
 
     if (res?.data?.data?.status == 200) {
-      getProducts()
-      alert('Product added successfully!');
+      setData(res?.data?.data?.payload)
     }
 
   };

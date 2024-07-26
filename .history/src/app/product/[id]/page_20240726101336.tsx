@@ -16,6 +16,8 @@ interface Product {
   relatedProducts: Product[];
 }
 
+
+
 const ProductDetails = ({ reviews, relatedProducts }: any) => {
   const [quantity, setQuantity] = useState(0);
   const [rating, setRating] = useState(0);

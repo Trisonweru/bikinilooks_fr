@@ -16,8 +16,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CurrencyFormat from 'react-currency-format'
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, WhatsappIcon, XIcon, LinkedinShareButton, LinkedinIcon, TelegramShareButton, TelegramIcon } from 'react-share';
 import { ImSpinner2 } from 'react-icons/im';
-import axios from 'axios';
-
 
 
 interface TabPanelProps {
@@ -212,13 +210,13 @@ export default function Form() {
     }
   }
 
-  const handleDelete = async (id: any) => {
+  const handleDelete = (id: any) => {
     console.log(id)
-    const res = await axios.post('/api/delete', { id: id, token:tkn });
+    // setRows(rows.filter((row) => row.id !== id));
+const res = await axios.post('/api/product', { category: router?.id });
 
     if (res?.data?.data?.status == 200) {
-      getProducts()
-      alert('Product added successfully!');
+      setData(res?.data?.data?.payload)
     }
 
   };

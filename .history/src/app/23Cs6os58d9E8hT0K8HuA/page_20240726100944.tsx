@@ -16,8 +16,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CurrencyFormat from 'react-currency-format'
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, WhatsappIcon, XIcon, LinkedinShareButton, LinkedinIcon, TelegramShareButton, TelegramIcon } from 'react-share';
 import { ImSpinner2 } from 'react-icons/im';
-import axios from 'axios';
-
 
 
 interface TabPanelProps {
@@ -118,7 +116,6 @@ export default function Form() {
       }
 
       const result = await response.json();
-      getProducts()
       alert('Product added successfully!');
     } catch (error) {
       console.error('Error:', error);
@@ -212,15 +209,8 @@ export default function Form() {
     }
   }
 
-  const handleDelete = async (id: any) => {
-    console.log(id)
-    const res = await axios.post('/api/delete', { id: id, token:tkn });
-
-    if (res?.data?.data?.status == 200) {
-      getProducts()
-      alert('Product added successfully!');
-    }
-
+  const handleDelete = (id: any) => {
+    // setRows(rows.filter((row) => row.id !== id));
   };
 
   const columns: GridColDef[] = [
@@ -301,7 +291,7 @@ export default function Form() {
       width: 100,
       renderCell: (params) => (
         <button
-          onClick={() => handleDelete(params?.row?.ID)}
+          onClick={() => handleDelete(params.row.id)}
           style={{ color: 'red', cursor: 'pointer' }}
         >
           Delete

@@ -214,7 +214,7 @@ export default function Form() {
 
   const handleDelete = async (id: any) => {
     console.log(id)
-    const res = await axios.post('/api/delete', { id: id, token:tkn });
+    const res = await axios.post('/api/delete', { id: id });
 
     if (res?.data?.data?.status == 200) {
       getProducts()
