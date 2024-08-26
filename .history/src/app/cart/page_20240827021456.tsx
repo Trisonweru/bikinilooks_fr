@@ -104,7 +104,7 @@ const Cart: React.FC = () => {
             Complete Order via WhatsApp
           </button>
 
-          {token === "" || token == null ? <Link href={"/auth/login"}>
+          {token === "" ? <Link href={"/auth/login"}>
             <button
               className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600"
             >
