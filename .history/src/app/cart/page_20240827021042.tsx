@@ -31,7 +31,7 @@ const Cart: React.FC = () => {
     addPathname("/cart")
     tkn()
 
-    window.localStorage.getItem("total")
+    window.localStorage.getItem("total",)
   }, []);
 
 
