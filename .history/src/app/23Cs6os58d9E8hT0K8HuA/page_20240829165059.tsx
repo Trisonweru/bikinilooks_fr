@@ -235,7 +235,7 @@ export default function Form() {
     {
       field: 'product_image', headerName: 'IMAGE', width: 150, renderCell: (params) => <div style={{ height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
-          src={params?.row?.product_image || params?.row?.image}
+          src={params?.row?.product_image}
           alt="Product"
           style={{ maxHeight: '100%', maxWidth: '100%', objectFit: "contain" }}
         />
@@ -317,36 +317,11 @@ export default function Form() {
     }
   ];
 
-
-  const ordersColumn: GridColDef[] = [
-    {
-      field: 'product_image', headerName: 'IMAGE', width: 200, renderCell: (params) => <div style={{ height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <img
-          src={params?.row?.image}
-          alt="Product"
-          style={{ maxHeight: '100%', maxWidth: '100%', objectFit: "contain" }}
-        />
-      </div>
-    },
-    { field: 'title', headerName: 'NAME', width: 150 },
-    {
-      field: 'totalPrice', headerName: 'PRICE', width: 150, renderCell: (params: any) => (
-        <CurrencyFormat
-          value={params.row.totalPrice}
-          displayType='text'
-          className='text-danger'
-          prefix='Ksh'
-          decimalScale={2}
-          thousandSeparator
-        />
-      )
-    },
-    { field: 'quantity', headerName: 'QUANTITY', width: 130 }
-  ]
   const getRowHeight = (params: any) => {
     return 150; // Set this to the height of your image
   };
 
+  console.log("orders", orders)
 
   return (
     <>
@@ -546,22 +521,14 @@ export default function Form() {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  <div className='space-x-3 font-semibold'>
-                    <span className='font-semibold'>{item?.id}</span> <span className='text-[#752A78]'>Amount:   (<CurrencyFormat
-                      value={item?.amount}
-                      displayType='text'
-                      className='text-danger'
-                      prefix='Ksh'
-                      decimalScale={2}
-                      thousandSeparator
-                    />)</span>
-                    <span className={item?.status === "COMPLETE" ? 'font-semibold text-green-500' : item?.status === "PENDING" || item?.status === "pending" ? "font-semibold text-indigo-900" : item?.status === "PROCESSING" ? "font-semibold text-orange-400" : item?.status === "FAILED" ? "font-semibold text-red-900" : 'font-semibold'}>{item?.status}</span>
-                    <span className='text-xs text-gray-500'>{new Date(item?.CreatedAt).toLocaleString()}</span>
-                  </div>
+                  <div className='space-x-3'> 
+                    <span className='font-semibold'>{item?.id}</span>
+                    <span className={item?.st}>{item?.status}</span>
+                    <span>{new Date(item?.CreatedAt).toLocaleString()}</span>
+                    </div>
 
                 </AccordionSummary>
                 <AccordionDetails>
-                  <DataGrid rows={item?.cart_items ?? []} columns={ordersColumn} getRowId={(row) => row?.id} autoHeight getRowHeight={getRowHeight} />
                 </AccordionDetails>
               </Accordion>
             )}

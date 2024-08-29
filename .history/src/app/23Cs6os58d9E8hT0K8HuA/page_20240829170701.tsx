@@ -235,7 +235,7 @@ export default function Form() {
     {
       field: 'product_image', headerName: 'IMAGE', width: 150, renderCell: (params) => <div style={{ height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
-          src={params?.row?.product_image || params?.row?.image}
+          src={params?.row?.product_image  || params?.row?.image}
           alt="Product"
           style={{ maxHeight: '100%', maxWidth: '100%', objectFit: "contain" }}
         />
@@ -320,7 +320,7 @@ export default function Form() {
 
   const ordersColumn: GridColDef[] = [
     {
-      field: 'product_image', headerName: 'IMAGE', width: 200, renderCell: (params) => <div style={{ height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      field: 'product_image', headerName: 'IMAGE', width: 150, renderCell: (params) => <div style={{ height: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img
           src={params?.row?.image}
           alt="Product"
@@ -328,9 +328,9 @@ export default function Form() {
         />
       </div>
     },
-    { field: 'title', headerName: 'NAME', width: 150 },
+    { field: 'title', headerName: 'NAME', width: 100 },
     {
-      field: 'totalPrice', headerName: 'PRICE', width: 150, renderCell: (params: any) => (
+      field: 'totalPrice', headerName: 'PRICE', width: 100, renderCell: (params: any) => (
         <CurrencyFormat
           value={params.row.totalPrice}
           displayType='text'
@@ -341,12 +341,73 @@ export default function Form() {
         />
       )
     },
-    { field: 'quantity', headerName: 'QUANTITY', width: 130 }
+    { field: 'quantity', headerName: 'QUANTITY', width: 130 },
+    { field: 'fixed_discount', headerName: 'FIXED DISCOUNT', width: 140 },
+    { field: 'percentage_discount', headerName: '% DISCOUNT', width: 120 },
+    {
+      field: 'available_stock', headerName: 'STOCK', width: 100, renderCell: (params: any) => (
+        <CurrencyFormat
+          value={params.row.available_stock}
+          displayType='text'
+          className='text-danger'
+          decimalScale={2}
+          thousandSeparator
+        />
+      )
+    },
+    {
+      field: 'share',
+      headerName: 'SHARE',
+      width: 230,
+      renderCell: (params) => {
+        const productUrl = `https://www.bikinilooks.com/product/${params?.row?.ID}`;
+        const productName = params.row.product_name;
+        const productImage = params.row.product_image;
+        const productPrice = `Ksh ${params.row.price}`;
+        const productDescription = params.row.product_description;
+
+        const shareContent = `${productName}\nPrice: ${productPrice}\nDescription: ${productDescription}`;
+
+        return (
+          <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', width: '100%', height: "100%" }} className="space-x-2">
+            <FacebookShareButton url={productImage} title={shareContent} >
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <TwitterShareButton url={productUrl} title={shareContent}>
+              <XIcon size={32} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={productUrl} title={shareContent}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+            <LinkedinShareButton url={productUrl} title={shareContent} >
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+            <TelegramShareButton url={productUrl} title={productName} >
+              <TelegramIcon size={32} round />
+            </TelegramShareButton>
+          </div>
+        );
+      }
+    },
+    {
+      field: 'delete',
+      headerName: 'DELETE',
+      width: 100,
+      renderCell: (params) => (
+        <button
+          onClick={() => handleDelete(params?.row?.ID)}
+          style={{ color: 'red', cursor: 'pointer' }}
+        >
+          Delete
+        </button>
+      )
+    }
   ]
   const getRowHeight = (params: any) => {
     return 150; // Set this to the height of your image
   };
 
+  console.log("orders", orders)
 
   return (
     <>
@@ -546,22 +607,15 @@ export default function Form() {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  <div className='space-x-3 font-semibold'>
-                    <span className='font-semibold'>{item?.id}</span> <span className='text-[#752A78]'>Amount:   (<CurrencyFormat
-                      value={item?.amount}
-                      displayType='text'
-                      className='text-danger'
-                      prefix='Ksh'
-                      decimalScale={2}
-                      thousandSeparator
-                    />)</span>
-                    <span className={item?.status === "COMPLETE" ? 'font-semibold text-green-500' : item?.status === "PENDING" || item?.status === "pending" ? "font-semibold text-indigo-900" : item?.status === "PROCESSING" ? "font-semibold text-orange-400" : item?.status === "FAILED" ? "font-semibold text-red-900" : 'font-semibold'}>{item?.status}</span>
+                  <div className='space-x-3'>
+                    <span className='font-semibold'>{item?.id}({item?.amount})</span>
+                    <span className={item?.status === "COMPLETE" ? 'font-semibold text-green-500' : item?.status === "PENDING" || item?.status === "pending" ? "font-semibold text-indigo-900" :item?.status === "PROCESSING" ? "font-semibold text-orange-400":item?.status === "FAILED"?"font-semibold text-red-900":'font-semibold'}>{item?.status}</span>
                     <span className='text-xs text-gray-500'>{new Date(item?.CreatedAt).toLocaleString()}</span>
                   </div>
 
                 </AccordionSummary>
                 <AccordionDetails>
-                  <DataGrid rows={item?.cart_items ?? []} columns={ordersColumn} getRowId={(row) => row?.id} autoHeight getRowHeight={getRowHeight} />
+                  <DataGrid rows={item?.cart_items??[]} columns={ordersColumn} getRowId={(row) => row?.id} autoHeight getRowHeight={getRowHeight} />
                 </AccordionDetails>
               </Accordion>
             )}

@@ -32,6 +32,7 @@ export default function Login() {
 
     try {
       const response = await axios.post('/api/login', formData);
+
       if (response.data && response?.data?.data?.status === 200) {
         localStorage.setItem('token', response?.data?.data?.token);
         localStorage.setItem('email', response?.data?.data?.user?.email);
@@ -43,7 +44,7 @@ export default function Login() {
             return
         }
 
-         if(response?.data?.data?.type === "#33"){
+         if(response?.data?.data?.type === "#12"){
          router.replace('/23Cs6os58d9E8hT0K8HuA');
          return
         }

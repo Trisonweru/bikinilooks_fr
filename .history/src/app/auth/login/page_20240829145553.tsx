@@ -43,7 +43,7 @@ export default function Login() {
             return
         }
 
-         if(response?.data?.data?.type === "#33"){
+         if(response?.data?.data?.type === "#12"){
          router.replace('/23Cs6os58d9E8hT0K8HuA');
          return
         }

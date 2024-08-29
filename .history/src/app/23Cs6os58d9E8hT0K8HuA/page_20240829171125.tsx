@@ -546,7 +546,7 @@ export default function Form() {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  <div className='space-x-3 font-semibold'>
+                  <div className='space-x-3'>
                     <span className='font-semibold'>{item?.id}</span> <span className='text-[#752A78]'>Amount:   (<CurrencyFormat
                       value={item?.amount}
                       displayType='text'
