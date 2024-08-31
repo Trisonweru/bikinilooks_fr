@@ -13,8 +13,8 @@ import { Divider } from '@mui/material';
 
 const Marquee = ({text}:any) => {
   return (
-    <div className="marquee text-white font-normal">
-      <p>{text}</p>
+    <div className="marquee text-white">
+      <p>{text}|</p>
       <style jsx>{`
         .marquee {
           width: 100%;
@@ -124,7 +124,9 @@ export default function HomePage() {
     setComments(null)
     const res2 = await fetch('/api/getComment');
     const res = await res2?.json();
+    console.log("res?.data",res?.data)
     if (res?.data?.status == 200) {
+      
       setComments(res?.data?.payload)
     }
   };
@@ -145,8 +147,8 @@ export default function HomePage() {
           </div>
         </div> 
         {/* 752A78 */}
-        <div className='bg-[#752A78] shadow-md'>
-          <p className='mb-0 px-2 font-medium text-white py-2 text-center'>Customer Feedback </p>
+        <div className='bg-[#752A78] shadow-md flex justify-center'>
+          <p className='mb-0 px-2 font-medium text-white py-2'>Customer feedback </p>
           <Divider color='#3d2a3d'/>
           <div className='pt-2'>
              {comments?.map((commentObj:any, index:any) => (

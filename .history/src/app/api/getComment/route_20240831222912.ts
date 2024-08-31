@@ -4,10 +4,6 @@ export async function GET() {
   let result= null
   await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/orders/getComments`, {
     method: 'GET',
-     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer `
-    }
   })
     .then(res => res.json())
     .then(async (resu:any) => {

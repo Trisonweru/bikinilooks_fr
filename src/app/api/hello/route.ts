@@ -7,8 +7,8 @@ export async function GET() {
   try {
     const response = await axios.get('https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProducts', {
       headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJlbWFpbCI6ImVxZXFlQGdtYWlsLmNvbSIsImV4cCI6MTcyNTAyMDE1NywicGhvbmUiOiIyNTQxMTQ4ODQyNzUiLCJ1c2VySWQiOiIzIn0.tGo7F1AGh9UIJSCuG61zcFMm5A4IFHeqh6bW5qRqgg8`,
         'Content-Type': 'application/json',
+        'Authorization': `Bearer `,
       }
     });
 

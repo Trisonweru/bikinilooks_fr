@@ -6,7 +6,7 @@ export async function GET() {
     method: 'GET',
      headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer `
+      Authorization: `Bearer ${token}`
     }
   })
     .then(res => res.json())

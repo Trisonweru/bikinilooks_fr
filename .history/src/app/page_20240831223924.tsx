@@ -125,6 +125,7 @@ export default function HomePage() {
     const res2 = await fetch('/api/getComment');
     const res = await res2?.json();
     if (res?.data?.status == 200) {
+      
       setComments(res?.data?.payload)
     }
   };
