@@ -54,9 +54,9 @@ export default function HomePage() {
 
 
   useEffect(() => {
+    getComment()
     const browserId = getBrowserId();
     setBrowserId(browserId)
-    getComments()
 
     // You can send this ID to your server or use it as needed
   }, []);
@@ -121,7 +121,7 @@ export default function HomePage() {
     }
   };
 
-  const getComments = async () => {
+  const getComment = async () => {
     setComments(null)
     const res2 = await fetch('/api/comments');
     const res = await res2?.json();

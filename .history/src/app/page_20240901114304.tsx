@@ -11,7 +11,7 @@ import { getBrowserId } from '@/components/brid/brid';
 import { Divider } from '@mui/material';
 
 
-const Marquee = ({ text }: any) => {
+const Marquee = ({text}:any) => {
   return (
     <div className="marquee text-white font-normal">
       <p>{text}</p>
@@ -54,10 +54,10 @@ export default function HomePage() {
 
 
   useEffect(() => {
+     getComment()
     const browserId = getBrowserId();
     setBrowserId(browserId)
-    getComments()
-
+   
     // You can send this ID to your server or use it as needed
   }, []);
 
@@ -89,11 +89,11 @@ export default function HomePage() {
     }
   };
 
-  const handleReviewSubmit = async (e: React.FormEvent) => {
+  const handleReviewSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('browserId', browserId);
+    data.append('browserId',browserId );
     data.append('comment', review);
     data.append('token', "");
 
@@ -108,20 +108,20 @@ export default function HomePage() {
       }
 
       const result = await response.json();
-
+      
 
       setSuccess(true)
       getComment()
-      setTimeout(() => {
+      setTimeout(()=>{
         setFormVisible(false);
-      }, 10000)
+      },10000)
       setFormVisible(false);
     } catch (error) {
       alert('There was a problem with the submission.');
     }
   };
 
-  const getComments = async () => {
+    const getComment = async () => {
     setComments(null)
     const res2 = await fetch('/api/comments');
     const res = await res2?.json();
@@ -144,17 +144,17 @@ export default function HomePage() {
               </div>
             )}
           </div>
-        </div>
+        </div> 
         {/* 752A78 */}
         <div className='bg-[#752A78] shadow-md'>
           <p className='mb-0 px-2 font-medium text-white py-2 text-center'>Customer Feedback </p>
-          <Divider color='#3d2a3d' />
+          <Divider color='#3d2a3d'/>
           <div className='pt-2 pb-2'>
-            {comments?.map((commentObj: any, index: any) => (
+             {comments?.map((commentObj:any, index:any) => (
               <Marquee key={index} text={commentObj?.comment} />))}
           </div>
         </div>
-
+       
         <div className='mt-8 pb-10'>
           <ProductSection slides={data} loading={loading} />
         </div>
@@ -195,7 +195,7 @@ export default function HomePage() {
                     Submit
                   </button>
                 </div>
-                {success && <div className='text-green-700'>Thank you for your review</div>}
+                {success&&<div className='text-green-700'>Thank you for your review</div>}
               </form>
             </div>
           </div>

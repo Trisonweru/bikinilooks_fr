@@ -54,6 +54,7 @@ export default function HomePage() {
 
 
   useEffect(() => {
+
     const browserId = getBrowserId();
     setBrowserId(browserId)
     getComments()
