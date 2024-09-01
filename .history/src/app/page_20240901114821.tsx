@@ -53,8 +53,6 @@ export default function HomePage() {
   const [comments, setComments] = React.useState<any>(null);
   const [name, setName] = React.useState<any>(null);
 
-  console.log("comments",comments)
-
 
 
   useEffect(() => {
@@ -113,7 +111,6 @@ export default function HomePage() {
       }
 
       const result = await response.json();
-
 
 
       setSuccess(true)

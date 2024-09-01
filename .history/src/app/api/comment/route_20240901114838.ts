@@ -14,12 +14,11 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
-        "Context-Type": "application/json"
+        "Context-Type":"application/json"
       },
-      body: JSON.stringify({
-        "browserId": browserId,
-        "comment": comment,
-        "name": name
+      body:JSON.stringify({
+        "browserId":browserId,
+        "comment":comment
       }),
     });
 
@@ -30,7 +29,7 @@ export async function POST(request: Request) {
     const result = await response.json();
 
     return NextResponse.json({ status: 'success', data: result });
-  } catch (error: any) {
+  } catch (error:any) {
     return NextResponse.json({ status: 'error', message: error.message });
   }
 }

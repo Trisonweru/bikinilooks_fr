@@ -53,8 +53,6 @@ export default function HomePage() {
   const [comments, setComments] = React.useState<any>(null);
   const [name, setName] = React.useState<any>(null);
 
-  console.log("comments",comments)
-
 
 
   useEffect(() => {
@@ -99,7 +97,6 @@ export default function HomePage() {
     const data = new FormData();
     data.append('browserId', browserId);
     data.append('comment', review);
-    data.append('name', name);
     data.append('token', "");
 
     try {
@@ -115,9 +112,8 @@ export default function HomePage() {
       const result = await response.json();
 
 
-
       setSuccess(true)
-      getComments()
+      getComment()
       setTimeout(() => {
         setFormVisible(false);
       }, 10000)
@@ -178,7 +174,7 @@ export default function HomePage() {
             <div className="bg-white p-6 rounded-md shadow-md w-11/12 max-w-lg">
               <h2 className="text-2xl mb-4">Leave a Review</h2>
               <form onSubmit={handleReviewSubmit}>
-                <input className="w-full mb-2 p-2 border border-gray-300 rounded-md"
+                <input className="w-full mb p-2 border border-gray-300 rounded-md"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your full name"
