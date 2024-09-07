@@ -23,7 +23,7 @@ function NewArrivals() {
 
   const getProduct = async () => {
     setLoading(true)
-    const res = await axios.post(`/api/category?timestamp=${new Date().getTime()}`, { category: pathname?.split("/")[2] });
+    const res = await axios.post('/api/category?timestamp=${new Date().getTime()}', { category: pathname?.split("/")[2] });
 
     if (res?.data?.data?.status == 200) {
       setData(res?.data?.data?.payload)

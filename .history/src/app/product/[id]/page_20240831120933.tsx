@@ -39,7 +39,7 @@ const ProductDetails = ({ reviews, relatedProducts }: any) => {
   }, []);
 
   const getProduct = async () => {
-    const res = await axios.post(`/api/product?timestamp=${new Date().getTime()}`, { category: router?.id });
+    const res = await axios.post('/api/product', { category: router?.id });
 
     if (res?.data?.data?.status == 200) {
       setData(res?.data?.data?.payload)
