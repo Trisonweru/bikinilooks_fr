@@ -188,7 +188,7 @@ export default function Form() {
     }
   }
   const getDiscountTypes = async () => {
-    const res2 = await fetch(`/api/discount?timestamp=${new Date().getTime()}`);
+    const res2 = await fetch('/api/discount');
     const res = await res2.json()
 
     if (res?.data?.status == 200) {
@@ -200,7 +200,7 @@ export default function Form() {
 
   const getProducts = async () => {
     setLoading(true)
-    const res2 = await fetch(`/api/products?timestamp=${new Date().getTime()}`);
+    const res2 = await fetch(`/api/hello`);
     const res = await res2.json()
 
     if (res?.data?.status == 200) {
@@ -211,7 +211,7 @@ export default function Form() {
 
   const getOrders = async () => {
     setLoading(true)
-    const res2 = await fetch(`/api/orders?timestamp=${new Date().getTime()}`);
+    const res2 = await fetch(`/api/orders`);
     const res = await res2.json()
 
     if (res?.data?.status == 200) {
@@ -225,7 +225,7 @@ export default function Form() {
 
     if (res?.data?.data?.status == 200) {
       getProducts()
-      alert('Product deleted successfully!');
+      alert('Product added successfully!');
     }
 
   };
