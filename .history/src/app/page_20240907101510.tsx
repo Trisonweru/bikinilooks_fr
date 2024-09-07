@@ -54,6 +54,11 @@ export default function HomePage() {
   const [name, setName] = React.useState<any>(null);
 
   useEffect(() => {
+    
+
+  }, [comments]);
+
+  useEffect(() => {
     addPathname("/");
 
     const browserId = getBrowserId();
@@ -67,7 +72,7 @@ export default function HomePage() {
     if (theme == null) {
       getTheme();
     }
-  }, [data, theme, comments]);
+  }, [data, theme,comments]);
 
   const getProducts = async () => {
     setLoading(true);

@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const token = formData.get('token');
     const comment = formData.get('comment');
     const browserId = formData.get('browserId');
-    const name = formData.get('name');
+    const name = formData.get('fuu');
 
     // Assuming your external API endpoint is:
     const response = await fetch('https://sea-lion-app-bo3ep.ondigitalocean.app/orders/createBrowserComments', {
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         "browserId": browserId,
         "comment": comment,
-        "full_name": name
+        "name": name
       }),
     });
 

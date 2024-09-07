@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         "browserId": browserId,
         "comment": comment,
-        "full_name": name
+        "name": name
       }),
     });
 

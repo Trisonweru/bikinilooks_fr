@@ -14,7 +14,7 @@ import { Divider } from '@mui/material';
 const Marquee = ({ text }: any) => {
   return (
     <div className="marquee text-white font-normal">
-      <p>"{text}"</p>
+      <p>{text}</p>
       <style jsx>{`
         .marquee {
           width: 100%;
@@ -53,21 +53,25 @@ export default function HomePage() {
   const [comments, setComments] = React.useState<any>(null);
   const [name, setName] = React.useState<any>(null);
 
-  useEffect(() => {
-    addPathname("/");
+  console.log("comments",comments)
 
+
+
+  useEffect(() => {
     const browserId = getBrowserId();
     setBrowserId(browserId)
-    if (comments != null){
-      getComments()
-    }
+    getComments()
+  }, []);
+
+  useEffect(() => {
+    addPathname("/");
     if (data == null) {
       getProducts();
     }
     if (theme == null) {
       getTheme();
     }
-  }, [data, theme, comments]);
+  }, []);
 
   const getProducts = async () => {
     setLoading(true);
@@ -131,7 +135,6 @@ export default function HomePage() {
   };
 
 
-
   return (
     <main>
       <section className='bg-white min-h-screen pt-24 px-0 shadow-left-right'>
@@ -148,7 +151,7 @@ export default function HomePage() {
         </div>
         {/* 752A78 */}
         <div className='bg-[#752A78] shadow-md'>
-          <p className='mb-0 px-2 font-medium text-white py-2 text-center'>Testimonials</p>
+          <p className='mb-0 px-2 font-medium text-white py-2 text-center'>Customer Feedback </p>
           <Divider color='#3d2a3d' />
           <div className='pt-2 pb-2'>
             {comments?.map((commentObj: any, index: any) => (

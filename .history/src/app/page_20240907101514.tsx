@@ -53,6 +53,8 @@ export default function HomePage() {
   const [comments, setComments] = React.useState<any>(null);
   const [name, setName] = React.useState<any>(null);
 
+
+
   useEffect(() => {
     addPathname("/");
 
