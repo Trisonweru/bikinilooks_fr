@@ -69,7 +69,7 @@ export default function HomePage() {
 
  const getProducts = async () => {
   setLoading(true);
-  const res2 = await fetch(`/api/products?timestamp=${new Date().getTime()}`);
+  const res2 = await fetch(`/api/hello?timestamp=${new Date().getTime()}`);
   const res = await res2?.json();
   if (res?.data?.status == 200) {
     setData(res?.data?.payload);
@@ -79,7 +79,7 @@ export default function HomePage() {
 
 
   const getTheme = async () => {
-    const res2 = await fetch(`/api/theme?timestamp=${new Date().getTime()}`);
+    const res2 = await fetch('/api/theme?timestamp=${new Date().getTime()}');
     const res = await res2?.json();
     if (res?.data?.status == 200) {
       setTheme(res?.data?.payload?.url);
@@ -122,7 +122,7 @@ export default function HomePage() {
 
   const getComments = async () => {
     setComments(null)
-    const res2 = await fetch(`/api/comments?timestamp=${new Date().getTime()}`);
+    const res2 = await fetch('/api/comments?timestamp=${new Date().getTime()}');
     const res = await res2?.json();
     if (res?.data?.status == 200) {
       setComments(res?.data?.payload)
