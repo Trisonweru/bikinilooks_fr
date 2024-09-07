@@ -57,26 +57,25 @@ export default function HomePage() {
     addPathname("/");
     const browserId = getBrowserId();
     setBrowserId(browserId)
+    
+     const intervalId = setInterval(() => {
+    getComments()
+       getProducts();
+        getTheme();
+  }, 10000); // Poll every 10 seconds
 
-    const intervalId = setInterval(() => {
-      getComments()
-      getProducts();
-      getTheme();
-    }, 10000); // Poll every 10 seconds
-
-    return () => clearInterval(intervalId);
+  return () => clearInterval(intervalId); 
   }, [data, theme, comments]);
 
- const getProducts = async () => {
-  setLoading(true);
-  const res2 = await fetch(`/api/hello?timestamp=${new Date().getTime()}`);
-  const res = await res2?.json();
-  if (res?.data?.status == 200) {
-    setData(res?.data?.payload);
-    setLoading(false);
-  }
-};
-
+  const getProducts = async () => {
+    setLoading(true);
+    const res2 = await fetch('/api/hello');
+    const res = await res2?.json();
+    if (res?.data?.status == 200) {
+      setData(res?.data?.payload);
+      setLoading(false);
+    }
+  };
 
   const getTheme = async () => {
     const res2 = await fetch('/api/theme');
@@ -176,8 +175,8 @@ export default function HomePage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your full name"
-                  required
-                />
+                  required 
+                  />
 
                 <textarea
                   className="w-full p-2 border border-gray-300 rounded-md"
