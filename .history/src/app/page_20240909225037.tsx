@@ -128,12 +128,12 @@ export default function HomePage() {
   return (
     <main>
       <section className='bg-white min-h-screen pt-24 px-0 shadow-left-right'>
-        <div className="h-83">
+        <div className="h-80">
           <div className=" w-full h-full">
             {theme ? (
               <img src={theme} alt={`Slide ${theme}`} className="object-cover h-full w-full" />
             ) : (
-              <div className='w-full h-80 flex justify-center items-center'>
+              <div className='w-full h-90 flex justify-center items-center'>
                 <ImSpinner2 className='animate-spin' />
               </div>
             )}

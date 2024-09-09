@@ -128,7 +128,7 @@ export default function HomePage() {
   return (
     <main>
       <section className='bg-white min-h-screen pt-24 px-0 shadow-left-right'>
-        <div className="h-83">
+        <div className="h-">
           <div className=" w-full h-full">
             {theme ? (
               <img src={theme} alt={`Slide ${theme}`} className="object-cover h-full w-full" />
