@@ -5,6 +5,7 @@ import axios from 'axios';
 
 export async function GET() {
   try {
+    console.log("orders")
     const response = await axios.get('https://sea-lion-app-bo3ep.ondigitalocean.app/orders/getOrders', {
       headers: {
         'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJlbWFpbCI6ImVxZXFlQGdtYWlsLmNvbSIsImV4cCI6MTcyNTAyMDE1NywicGhvbmUiOiIyNTQxMTQ4ODQyNzUiLCJ1c2VySWQiOiIzIn0.tGo7F1AGh9UIJSCuG61zcFMm5A4IFHeqh6bW5qRqgg8`,
@@ -12,7 +13,7 @@ export async function GET() {
       }
     });
 
-
+    
     if (response.status !== 200) {
       throw new Error('Internal server error');
     }
@@ -21,10 +22,10 @@ export async function GET() {
 
     const res = NextResponse.json({ status: 200, data: response.data });
 
-    // Disable caching by setting the Cache-Control header to no-store
-    res.headers.set('Cache-Control', 'no-store');
+  // Disable caching by setting the Cache-Control header to no-store
+  res.headers.set('Cache-Control', 'no-store');
 
-    return res;
+  return res;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return NextResponse.json({ message: error.response.data.message }, { status: error.response.status });

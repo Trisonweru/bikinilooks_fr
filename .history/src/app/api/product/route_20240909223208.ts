@@ -20,8 +20,12 @@ export async function POST(req: NextRequest) {
 
       }
 
-      return NextResponse.json({ message: "Error" });
+ const res = NextResponse.json({ status: response.status,  message: 'Failed to fetch products'});
 
+    // Disable caching by setting the Cache-Control header to no-store
+    res.headers.set('Cache-Control', 'no-store');
+
+    return res;
     })
     .catch(err => {
       console.log(err.message)
@@ -29,13 +33,6 @@ export async function POST(req: NextRequest) {
 
     })
 
-  // return NextResponse.json({ data: result })
-
-  const res = NextResponse.json({ data: result });
-
-  // Disable caching by setting the Cache-Control header to no-store
-  res.headers.set('Cache-Control', 'no-store');
-
-  return res;
+  return NextResponse.json({ data: result })
 
 }

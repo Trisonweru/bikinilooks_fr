@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
     console.log(result)
 
     // Return success response to the client
-    // return NextResponse.json({ success: true, order_id: result.order_id }, { status: 200 });
+    return NextResponse.json({ success: true, order_id: result.order_id }, { status: 200 });
 
-    const res =  NextResponse.json({ success: true, order_id: result.order_id }, { status: 200 });
+    const res = NextResponse.json({ status: 'success', data: result });
 
     // Disable caching by setting the Cache-Control header to no-store
     res.headers.set('Cache-Control', 'no-store');

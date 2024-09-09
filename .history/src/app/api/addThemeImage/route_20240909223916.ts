@@ -23,14 +23,14 @@ export async function POST(request: Request) {
 
     // return NextResponse.json({ status: 'success', data: result });
 
-    const res = NextResponse.json({ status: 'success', data: result });
+  const res = NextResponse.json({ status: 'success', data: result });
 
-    // Disable caching by setting the Cache-Control header to no-store
-    res.headers.set('Cache-Control', 'no-store');
+  // Disable caching by setting the Cache-Control header to no-store
+  res.headers.set('Cache-Control', 'no-store');
 
-    return res;
+  return res;
 
-  } catch (error: any) {
+  } catch (error:any) {
     return NextResponse.json({ status: 'error', message: error.message });
   }
 }

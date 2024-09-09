@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  let result
-  await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProductCategories`, {
+  let result 
+  await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/product/getDiscountTypes`, {
     method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer `
+    }
   })
     .then(res => res.json())
     .then(async resu => {
@@ -21,13 +25,6 @@ export async function GET() {
 
     })
 
-  // return NextResponse.json({ data: result })
-
-  const res = NextResponse.json({ data: result });
-
-  // Disable caching by setting the Cache-Control header to no-store
-  res.headers.set('Cache-Control', 'no-store');
-
-  return res;
+  return NextResponse.json({ data: result })
 
 }

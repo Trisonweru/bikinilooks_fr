@@ -15,6 +15,12 @@ export async function GET() {
       return NextResponse.json({ status: 200, data: response.data });
     }
 
+    // Handle invalid responses from the API
+    // return NextResponse.json(
+    //   { message: 'Failed to fetch products' },
+    //   { status: response.status }
+    // );
+
     const res = NextResponse.json({ status: response.status,  message: 'Failed to fetch products'});
 
     // Disable caching by setting the Cache-Control header to no-store

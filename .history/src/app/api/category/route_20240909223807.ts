@@ -2,20 +2,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-  // const query = req.url;
-  const { id, token } = await req.json();
+    // const query = req.url;
+    const { category } = await req.json();
 
-  let result
-  await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/product/deleteProduct/${id}`, {//${query?.split("/")[query?.split("/").length-1]}
-    method: 'DELETE',
+  let result 
+  await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProductByCategory/${category}`, {//${query?.split("/")[query?.split("/").length-1]}
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer `
     }
   })
     .then(res => res.json())
     .then(async resu => {
-
       if (resu?.status === 200) {
         result = resu
 
@@ -32,11 +31,11 @@ export async function POST(req: NextRequest) {
 
   // return NextResponse.json({ data: result })
 
-  const res = NextResponse.json({ data: result });
+    const res =  NextResponse.json({ success: true, order_id: result.order_id }, { status: 200 });
 
-  // Disable caching by setting the Cache-Control header to no-store
-  res.headers.set('Cache-Control', 'no-store');
+    // Disable caching by setting the Cache-Control header to no-store
+    res.headers.set('Cache-Control', 'no-store');
 
-  return res;
+    return res;
 
 }

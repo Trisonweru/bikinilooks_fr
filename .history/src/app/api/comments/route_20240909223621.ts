@@ -25,7 +25,7 @@ export async function GET() {
 
     })
 
-  // return NextResponse.json({ data: result })
+  return NextResponse.json({ data: result })
 
    const res = NextResponse.json({ data: result });
 

@@ -20,13 +20,13 @@ export async function POST(request: Request) {
 
     // return NextResponse.json({ message: 'Request successful', data: response.data });
 
-    const res = NextResponse.json({ status: 'success', data: response.data });
+      const res = NextResponse.json({ status: 'success', data: result });
 
     // Disable caching by setting the Cache-Control header to no-store
     res.headers.set('Cache-Control', 'no-store');
 
     return res;
-
+    
   } catch (error: any) {
     return NextResponse.json({ status: 'error', message: error.message });
   }

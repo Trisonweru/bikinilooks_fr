@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  let result
+  let result 
   await fetch(`https://sea-lion-app-bo3ep.ondigitalocean.app/product/getDiscountTypes`, {
     method: 'GET',
     headers: {
@@ -18,6 +18,13 @@ export async function GET() {
 
       return NextResponse.json({ message: "Error" });
 
+      const res = NextResponse.json({ status: 200, data: response.data });
+
+    // Disable caching by setting the Cache-Control header to no-store
+    res.headers.set('Cache-Control', 'no-store');
+
+    return res;
+
     })
     .catch(err => {
       console.log(err.message)
@@ -25,13 +32,6 @@ export async function GET() {
 
     })
 
-  const res = NextResponse.json({ data: result });
-
-  // Disable caching by setting the Cache-Control header to no-store
-  res.headers.set('Cache-Control', 'no-store');
-
-  return res;
-  
-  // return NextResponse.json({ data: result })
+  return NextResponse.json({ data: result })
 
 }
