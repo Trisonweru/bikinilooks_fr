@@ -219,7 +219,7 @@ export default function Form() {
     }
   };
 
-  const [loading, setLoading] = useState<any>(false); //comments
+  const [loading, setLoading] = useState<any>(false);//coments
 
   const getProducts = async () => {
     setLoading(true);
