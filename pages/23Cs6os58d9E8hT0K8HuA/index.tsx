@@ -243,7 +243,16 @@ export default function Form() {
     }
   };
 
-  const handleDelete = async (id: any) => {};
+  const handleDelete = async (id: any) => {
+    const res = await fetcher("/api/delete", {
+      id: id,
+      token: tkn,
+    });
+    if (res?.data?.status == 200) {
+      getProducts();
+      alert("Deleted successfully!");
+    }
+  };
 
   const columns: GridColDef[] = [
     { field: "ID", headerName: "ID", width: 80 },
