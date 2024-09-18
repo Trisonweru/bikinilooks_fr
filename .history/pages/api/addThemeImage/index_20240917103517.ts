@@ -34,7 +34,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           });
         }
 
-        //Test
         // Set up form data for axios
         const form = new FormData();
         form.append("image", formData.image);

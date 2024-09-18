@@ -22,42 +22,57 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   cors(corsOptions)(req, res, async () => {
     if (req.method === "POST") {
       try {
-        // Parse the form data
+        // Retrieve form data
         const formData = req.body;
-        const token = formData.token;
+        const {
+          productName,
+          productCategory,
+          productDescription,
+          price,
+          availableStock,
+          discount,
+          discountType,
+          token,
+          image,
+        } = formData;
 
-        // Validate token and form data
-        if (!token || !formData.image) {
+        // Validate required fields
+        if (!productName || !productCategory || !price || !token || !image) {
           return res.status(400).json({
             status: "error",
-            message: "Token or image is missing",
+            message: "Missing required fields",
           });
         }
 
-        //Test
-        // Set up form data for axios
+        // Prepare form data for axios
         const form = new FormData();
-        form.append("image", formData.image);
+        form.append("productName", productName);
+        form.append("productCategory", productCategory);
+        form.append("productDescription", productDescription);
+        form.append("price", price);
+        form.append("availableStock", availableStock);
+        form.append("discount", discount);
+        form.append("discountType", discountType);
+        form.append("image", image);
 
-        // Send the form data to the external API
+        // Make a request to the external API to add the product
         const response = await axios.post(
-          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/addThemeImage",
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/addProduct",
           form,
           {
             httpsAgent: agent,
             headers: {
               Authorization: `Bearer ${token}`,
+              // ...form.getHeaders(), // Proper form data headers
             },
           }
         );
-
-        console.log("response", response.status);
 
         if (response.status !== 200) {
           throw new Error(response.data?.message || "Failed to add product");
         }
 
-        // Send success response with no-store cache header
+        // Success response with no-store cache control
         res.setHeader("Cache-Control", "no-store");
         return res.status(200).json({ status: "success", data: response.data });
       } catch (error: any) {
@@ -74,15 +89,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } else {
-      // Handle unsupported HTTP methods
+      // Handle unsupported methods
       res.status(405).json({ message: "Method Not Allowed" });
     }
   });
 };
 
-// Optional: Exporting configuration if needed for API limits, etc.
+// Optional API configuration
 export const config = {
   api: {
+    bodyParser: {
+      sizeLimit: "10mb", // Set desired body size limit
+    },
     responseLimit: false,
   },
 };
