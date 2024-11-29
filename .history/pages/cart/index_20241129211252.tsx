@@ -26,7 +26,6 @@ const Cart: React.FC = () => {
       0
     );
     const message = `${orderDetails}\n\nTotal: Ksh ${totalPrice}`;
-
     const whatsappLink = `https://wa.me/254787564098?text=${encodeURIComponent(
       message
     )}`;
@@ -124,48 +123,38 @@ const Cart: React.FC = () => {
             <span className="font-semibold">{formatCurrency(total)}</span>
           </p>
         </div>
-        {total == 0 ? (
-          <Link href={"/"}>
-            <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
-              Continue Shopping
-            </button>
-          </Link>
-        ) : (
-          <div className="flex flex-col space-y-4 mb-6">
-            <button
-              onClick={handleWhatsAppOrder}
-              className="w-full py-2 text-white bg-green-500 rounded shadow-lg hover:bg-green-600"
-            >
-              Complete Order via WhatsApp
-            </button>
+        <div className="flex flex-col space-y-4 mb-6">
+          <button
+            onClick={handleWhatsAppOrder}
+            className="w-full py-2 text-white bg-green-500 rounded shadow-lg hover:bg-green-600"
+          >
+            Complete Order via WhatsApp
+          </button>
 
-            {token === "" || token == null ? (
-              <Link href={"/auth/login"}>
-                <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
-                  Checkout with M-pesa
-                </button>
-              </Link>
-            ) : (
-              <Link href={"/checkout-form"}>
-                <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
-                  Checkout with M-pesa
-                </button>
-              </Link>
-            )}
-          </div>
-        )}
-        {total > 0 && (
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              placeholder="Apply Coupon"
-              className="flex-grow p-2 border rounded ring-1 ring-[#"
-            />
-            <button className="px-4 py-2 text-gray-400 bg-gray-100 rounded shadow-lg hover:bg-gray-200 border ">
-              Apply
-            </button>
-          </div>
-        )}
+          {token === "" || token == null ? (
+            <Link href={"/auth/login"}>
+              <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
+                Checkout with M-pesa
+              </button>
+            </Link>
+          ) : (
+            <Link href={"/checkout-form"}>
+              <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
+                Checkout with M-pesa
+              </button>
+            </Link>
+          )}
+        </div>
+        <div className="flex space-x-2">
+          <input
+            type="text"
+            placeholder="Apply Coupon"
+            className="flex-grow p-2 border rounded ring-1 ring-[#"
+          />
+          <button className="px-4 py-2 text-gray-400 bg-gray-100 rounded shadow-lg hover:bg-gray-200 border ">
+            Apply
+          </button>
+        </div>
       </div>
     </div>
   );

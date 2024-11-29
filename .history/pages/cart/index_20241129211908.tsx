@@ -125,9 +125,9 @@ const Cart: React.FC = () => {
           </p>
         </div>
         {total == 0 ? (
-          <Link href={"/"}>
+          <Link href={"/auth/login"}>
             <button className="w-full py-2 mb-2 text-white bg-blue-500 rounded shadow-lg hover:bg-blue-600">
-              Continue Shopping
+              Checkout with M-pesa
             </button>
           </Link>
         ) : (
@@ -154,18 +154,16 @@ const Cart: React.FC = () => {
             )}
           </div>
         )}
-        {total > 0 && (
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              placeholder="Apply Coupon"
-              className="flex-grow p-2 border rounded ring-1 ring-[#"
-            />
-            <button className="px-4 py-2 text-gray-400 bg-gray-100 rounded shadow-lg hover:bg-gray-200 border ">
-              Apply
-            </button>
-          </div>
-        )}
+        <div className="flex space-x-2">
+          <input
+            type="text"
+            placeholder="Apply Coupon"
+            className="flex-grow p-2 border rounded ring-1 ring-[#"
+          />
+          <button className="px-4 py-2 text-gray-400 bg-gray-100 rounded shadow-lg hover:bg-gray-200 border ">
+            Apply
+          </button>
+        </div>
       </div>
     </div>
   );
