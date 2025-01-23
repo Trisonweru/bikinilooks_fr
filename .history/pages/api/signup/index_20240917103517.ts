@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const { email, password, phoneNumber, fullName } = req.body;
 
         const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/auth/signup",
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/auth/signup",
           { email, password, phoneNumber, fullName },
           {
             httpsAgent: agent,

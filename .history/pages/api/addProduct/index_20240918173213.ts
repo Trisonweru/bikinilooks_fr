@@ -57,7 +57,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Make a request to the external API to add the product
         const response = await axios.post(
-          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/addProduct",
+          "https://walrus-app-xqnyv.ondigitalocean.app/product/addProduct",
           form,
           {
             httpsAgent: agent,

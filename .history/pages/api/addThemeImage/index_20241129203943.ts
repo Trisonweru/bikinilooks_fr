@@ -41,7 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Send the form data to the external API
         const response = await axios.post(
-          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/addThemeImage",
+          "https://walrus-app-xqnyv.ondigitalocean.app/product/addThemeImage",
           form,
           {
             httpsAgent: agent,

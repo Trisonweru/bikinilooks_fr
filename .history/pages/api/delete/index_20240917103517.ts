@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       try {
         const response = await fetch(
-          `https://walrus-app-xqnyv.ondigitalocean.app/product/deleteProduct/${id}`,
+          `https://sea-lion-app-bo3ep.ondigitalocean.app/product/deleteProduct/${id}`,
           {
             method: "DELETE",
             headers: {

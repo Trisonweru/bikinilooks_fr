@@ -14,32 +14,30 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   cors(corsOptions)(req, res, async () => {
     if (req.method === "POST") {
       try {
-        const { email, password, phoneNumber, fullName } = req.body;
+        const { email, password } = req.body;
 
         const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/auth/signup",
-          { email, password, phoneNumber, fullName },
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/auth/login",
+          { email, password },
           {
             httpsAgent: agent,
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${token}`, // Add token if needed
             },
           }
         );
 
         if (response.status !== 200) {
-          throw new Error("Failed to sign up");
+          throw new Error("Invalid email or password");
         }
 
         res
           .status(200)
-          .json({ message: "Signup successful", data: response.data });
+          .json({ message: "Login successful", data: response.data });
       } catch (error: any) {
         if (axios.isAxiosError(error) && error.response) {
           res

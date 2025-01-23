@@ -22,42 +22,40 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   cors(corsOptions)(req, res, async () => {
     if (req.method === "POST") {
       try {
-        // Parse the form data
-        const formData = req.body;
-        const token = formData.token;
+        // Retrieve form data from the request
+        const { productName, token } = req.body;
 
-        // Validate token and form data
-        if (!token || !formData.image) {
+        // Validate required fields
+        if (!productName || !token) {
           return res.status(400).json({
             status: "error",
-            message: "Token or image is missing",
+            message: "Missing required fields",
           });
         }
 
-        //Test
-        // Set up form data for axios
-        const form = new FormData();
-        form.append("image", formData.image);
-
-        // Send the form data to the external API
+        // Make a POST request using Axios to add the product category
         const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/product/addThemeImage",
-          form,
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/addProductCategory",
+          { name: productName },
           {
             httpsAgent: agent,
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // Include the token in Authorization header
             },
           }
         );
 
+        // Handle non-200 responses
         if (response.status !== 200) {
-          throw new Error(response.data?.message || "Failed to add product");
+          throw new Error("Failed to add product category");
         }
 
-        // Send success response with no-store cache header
+        // Return success response
         res.setHeader("Cache-Control", "no-store");
-        return res.status(200).json({ status: "success", data: response.data });
+        return res.status(200).json({
+          status: "success",
+          data: response.data,
+        });
       } catch (error: any) {
         if (axios.isAxiosError(error) && error.response) {
           return res.status(error.response.status).json({
@@ -72,13 +70,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } else {
-      // Handle unsupported HTTP methods
+      // Handle unsupported methods
       res.status(405).json({ message: "Method Not Allowed" });
     }
   });
 };
 
-// Optional: Exporting configuration if needed for API limits, etc.
+// Optional API configuration
 export const config = {
   api: {
     responseLimit: false,

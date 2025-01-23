@@ -25,7 +25,7 @@ export default async function handler(
     if (req.method === "GET") {
       try {
         const response = await fetch(
-          "https://walrus-app-xqnyv.ondigitalocean.app/product/getDiscountTypes",
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/getDiscountTypes",
           {
             method: "GET",
             headers: {

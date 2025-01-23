@@ -1,3 +1,5 @@
+//An API to fetch products from a specific endpoint using axios, disabling caching in the response
+
 import type { NextApiRequest, NextApiResponse } from "next";
 import https from "https";
 import axios from "axios";
@@ -9,37 +11,39 @@ const agent = new https.Agent({
 
 const corsOptions = {
   origin: "*",
-  methods: ["POST"],
+  methods: ["GET"],
   allowedHeaders: ["Content-Type"],
   optionsSuccessStatus: 200,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  // Apply CORS middleware
   cors(corsOptions)(req, res, async () => {
-    if (req.method === "POST") {
+    // Handle GET request
+    if (req.method === "GET") {
       try {
-        const { email, password, phoneNumber, fullName } = req.body;
-
-        const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/auth/signup",
-          { email, password, phoneNumber, fullName },
+        const response = await axios.get(
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProducts",
           {
             httpsAgent: agent,
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${token}`, // Add token if needed
+              // 'Authorization': `Bearer ${token}`, // Uncomment and provide the token if required
             },
           }
         );
 
-        if (response.status !== 200) {
-          throw new Error("Failed to sign up");
+        if (response.status === 200) {
+          res.setHeader("Cache-Control", "no-store"); // Disable caching
+          res.status(200).json({ status: 200, data: response.data });
+        } else {
+          res.setHeader("Cache-Control", "no-store"); // Disable caching
+          res.status(response.status).json({
+            status: response.status,
+            message: "Failed to fetch products",
+          });
         }
-
-        res
-          .status(200)
-          .json({ message: "Signup successful", data: response.data });
       } catch (error: any) {
         if (axios.isAxiosError(error) && error.response) {
           res
@@ -50,6 +54,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } else {
+      // Method Not Allowed
       res.status(405).json({ message: "Method Not Allowed" });
     }
   });

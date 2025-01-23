@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import https from "https";
 import axios from "axios";
+import https from "https";
 import cors from "cors";
 
+// Disable SSL certificate validation
 const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
+// Configure CORS options
 const corsOptions = {
   origin: "*",
   methods: ["POST"],
@@ -16,30 +18,32 @@ const corsOptions = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  // Apply CORS middleware
   cors(corsOptions)(req, res, async () => {
     if (req.method === "POST") {
       try {
-        const { email, password, phoneNumber, fullName } = req.body;
+        // Parse the request body
+        const { category } = req.body;
 
-        const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/auth/signup",
-          { email, password, phoneNumber, fullName },
+        // Fetch products by category from the external API
+        const response = await axios.get(
+          `https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProductByCategory/${category}`,
           {
             httpsAgent: agent,
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${token}`, // Add token if needed
+              Authorization: `Bearer `, // Add the Bearer token here if needed
             },
           }
         );
 
         if (response.status !== 200) {
-          throw new Error("Failed to sign up");
+          throw new Error(response.data?.message || "Error fetching products");
         }
 
-        res
-          .status(200)
-          .json({ message: "Signup successful", data: response.data });
+        // Disable caching and send the response
+        res.setHeader("Cache-Control", "no-store");
+        res.status(200).json({ status: 200, data: response.data });
       } catch (error: any) {
         if (axios.isAxiosError(error) && error.response) {
           res
@@ -50,11 +54,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } else {
+      // Handle unsupported methods
       res.status(405).json({ message: "Method Not Allowed" });
     }
   });
 };
 
+// Optional: Exporting configuration if needed for API limits, etc.
 export const config = {
   api: {
     responseLimit: false,

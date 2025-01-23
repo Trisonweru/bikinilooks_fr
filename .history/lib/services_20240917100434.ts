@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function loginUser(email: string, password: string) {
   try {
     const response = await axios.post(
-      "https://walrus-app-xqnyv.ondigitalocean.app/auth/login",
+      "https://sea-lion-app-bo3ep.ondigitalocean.app/auth/login",
       {
         email,
         password,

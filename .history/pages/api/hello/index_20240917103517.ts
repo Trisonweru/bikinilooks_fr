@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import https from "https";
 import axios from "axios";
 import cors from "cors";
+import { NextResponse } from "@/node_modules/next/server";
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
@@ -9,7 +10,7 @@ const agent = new https.Agent({
 
 const corsOptions = {
   origin: "*",
-  methods: ["POST"],
+  methods: ["GET"],
   allowedHeaders: ["Content-Type"],
   optionsSuccessStatus: 200,
 };
@@ -17,36 +18,40 @@ const corsOptions = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   cors(corsOptions)(req, res, async () => {
-    if (req.method === "POST") {
+    if (req.method === "GET") {
       try {
-        const { email, password, phoneNumber, fullName } = req.body;
-
-        const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/auth/signup",
-          { email, password, phoneNumber, fullName },
+        const response = await axios.get(
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/product/getProducts",
           {
             httpsAgent: agent,
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${token}`, // Add token if needed
+              Authorization: `Bearer `, // Add the token here if needed
             },
           }
         );
 
         if (response.status !== 200) {
-          throw new Error("Failed to sign up");
+          throw new Error("Failed to fetch products");
         }
 
-        res
-          .status(200)
-          .json({ message: "Signup successful", data: response.data });
+        const result = NextResponse.json({ status: 200, data: response.data });
+
+        // Disable caching by setting the Cache-Control header to no-store
+        result.headers.set("Cache-Control", "no-store");
+
+        return result;
       } catch (error: any) {
         if (axios.isAxiosError(error) && error.response) {
-          res
-            .status(error.response.status)
-            .json({ message: error.response.data?.message || "API Error" });
+          return NextResponse.json(
+            { message: error.response.data.message || "API Error" },
+            { status: error.response.status }
+          );
         } else {
-          res.status(500).json({ message: error.message || "Server Error" });
+          return NextResponse.json(
+            { message: error.message || "Server Error" },
+            { status: 500 }
+          );
         }
       }
     } else {

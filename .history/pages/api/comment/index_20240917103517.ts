@@ -22,57 +22,47 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   cors(corsOptions)(req, res, async () => {
     if (req.method === "POST") {
       try {
-        // Parse the form data
-        const formData = req.body;
-        const token = formData.token;
+        // Parse the request body from form data
+        const { token, review, browserId, name } = req.body;
 
-        // Validate token and form data
-        if (!token || !formData.image) {
-          return res.status(400).json({
-            status: "error",
-            message: "Token or image is missing",
-          });
-        }
-
-        //Test
-        // Set up form data for axios
-        const form = new FormData();
-        form.append("image", formData.image);
-
-        // Send the form data to the external API
+        // Send the POST request to the external API with form data
         const response = await axios.post(
-          "https://walrus-app-xqnyv.ondigitalocean.app/product/addThemeImage",
-          form,
+          "https://sea-lion-app-bo3ep.ondigitalocean.app/orders/createBrowserComments",
+          {
+            browserId: browserId,
+            comment: review,
+            fullName: name ?? "User",
+          },
           {
             httpsAgent: agent,
             headers: {
               Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
             },
           }
         );
 
+        console.log(response.status);
+
         if (response.status !== 200) {
-          throw new Error(response.data?.message || "Failed to add product");
+          throw new Error(response.data?.message || "Failed to add review");
         }
 
-        // Send success response with no-store cache header
+        // Disable caching and return success response
         res.setHeader("Cache-Control", "no-store");
-        return res.status(200).json({ status: "success", data: response.data });
+        res.status(200).json({ status: "success", data: response.data });
       } catch (error: any) {
+        // Error handling for axios or other errors
         if (axios.isAxiosError(error) && error.response) {
-          return res.status(error.response.status).json({
-            status: "error",
-            message: error.response.data?.message || "API Error",
-          });
+          res
+            .status(error.response.status)
+            .json({ message: error.response.data?.message || "API Error" });
         } else {
-          return res.status(500).json({
-            status: "error",
-            message: error.message || "Server Error",
-          });
+          res.status(500).json({ message: error.message || "Server Error" });
         }
       }
     } else {
-      // Handle unsupported HTTP methods
+      // Handle unsupported methods
       res.status(405).json({ message: "Method Not Allowed" });
     }
   });
