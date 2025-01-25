@@ -81,9 +81,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 // Optional: Exporting configuration if needed for API limits, etc.
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: "20mb", // Set desired body size limit
-    },
     responseLimit: false,
   },
 };
