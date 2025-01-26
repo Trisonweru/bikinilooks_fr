@@ -89,6 +89,39 @@ const Navbar: React.FC = () => {
     setTkn(token);
   }, []);
 
+  const [searchTerm, setSearchTerm] = useState(""); // Holds the search term
+  const [results, setResults] = useState([]); // Holds the search results
+  const [isLoading, setIsLoading] = useState(false); // Indicates loading state
+
+  //walrus-app-xqnyv.ondigitalocean.app/product/search?product_name=crop&limit=5&offset=0
+
+  https: const handleSearch = async (query: string) => {
+    if (!query) {
+      setResults([]); // Clear results if query is empty
+      return;
+    }
+
+    setIsLoading(true);
+    // Simulating an API call
+    setTimeout(() => {
+      const fakeResults: any = [
+        "React.js Guide",
+        "Understanding Tailwind CSS",
+        "How to build a search bar",
+        "Optimizing React performance",
+        "Tailwind CSS Best Practices",
+      ].filter((item) => item.toLowerCase().includes(query.toLowerCase()));
+
+      setResults(fakeResults);
+      setIsLoading(false);
+    }, 500); // Fake delay of 500ms
+  };
+
+  const handleChange = (e: { target: { value: any } }) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    handleSearch(value);
+  };
   return (
     <nav
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
@@ -105,11 +138,42 @@ const Navbar: React.FC = () => {
           </button>
         </div>
         <div className="hidden md:flex items-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border px-4 py-2 border-slate-600 rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
-          />
+          <div className="relative">
+            <div className="hidden md:flex items-center">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleChange}
+                placeholder="Search..."
+                className="border px-4 py-2 border-slate-600 text-   rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
+              />
+            </div>
+            {/* Results dropdown */}
+            {searchTerm && (
+              <div className="absolute top-12 left-0 right-0 bg-white border border-slate-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
+                {isLoading ? (
+                  <p className="text-center py-2">Loading...</p>
+                ) : results.length > 0 ? (
+                  results.map((result, index) => (
+                    <div
+                      key={index}
+                      className="px-4 py-2 hover:bg-slate-100 cursor-pointer text-sm text-slate-700"
+                      onClick={() => {
+                        setSearchTerm("");
+                        alert(`You selected: ${result}`);
+                      }}
+                    >
+                      {result}
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center py-2 text-slate-500">
+                    No results found
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex items-center justify-center flex-grow lg:flex-grow-0">
           <Link href={"/"}>

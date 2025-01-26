@@ -160,21 +160,19 @@ const Navbar: React.FC = () => {
                   </p>
                 ) : results.length > 0 ? (
                   <ul className="divide-y divide-gray-200">
-                    {results.map((result: any, index: any) => (
-                      <Link href={`/product/${result?.ID}`}>
-                        <li
-                          key={index}
-                          className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
-                          onClick={() => setSearchTerm("")} // Optional: Handle result click
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{result?.product_name || "No Name"}</span>
-                            <span className="text-xs text-gray-500">
-                              {result?.price ? `Ksh ${result.price}` : ""}
-                            </span>
-                          </div>
-                        </li>
-                      </Link>
+                    {results.map((result, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
+                        onClick={() => handleResultClick(result)} // Optional: Handle result click
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{result?.product_name || "No Name"}</span>
+                          <span className="text-xs text-gray-500">
+                            {result?.price ? `Ksh ${result.price}` : ""}
+                          </span>
+                        </div>
+                      </li>
                     ))}
                   </ul>
                 ) : (

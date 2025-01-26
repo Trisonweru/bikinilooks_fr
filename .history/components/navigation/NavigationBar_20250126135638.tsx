@@ -14,7 +14,6 @@ import { useAppCtx } from "@/pages/context/AppContext";
 import { useRouter } from "next/router";
 import getToken from "@/lib/getToken";
 import logoutUser from "@/lib/logoutUser";
-import axios from "axios";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -93,33 +92,29 @@ const Navbar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Holds the search term
   const [results, setResults] = useState([]); // Holds the search results
   const [isLoading, setIsLoading] = useState(false); // Indicates loading state
-  const [error, setError] = useState<string | null>(null);
-  console.log(error);
 
   const handleSearch = async (query: string) => {
     if (!query) {
-      setResults([]); // Clear results if the query is empty
+      setResults([]); // Clear results if query is empty
       return;
     }
 
     setIsLoading(true);
-    setError(null); // Reset error before the search
+    // Simulating an API call
+    setTimeout(() => {
+      const fakeResults: any = [
+        "React.js Guide",
+        "Understanding Tailwind CSS",
+        "How to build a search bar",
+        "Optimizing React performance",
+        "Tailwind CSS Best Practices",
+      ].filter((item) => item.toLowerCase().includes(query.toLowerCase()));
 
-    try {
-      const res = await axios.post(`/api/search`, { term: query });
-
-      console.log(res?.data?.data?.payload);
-
-      // const data = await response.json();
-
-      // Assuming your API returns a payload in the format { payload: [...] }
-      setResults(res?.data?.data?.payload || []);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
-    } finally {
+      setResults(fakeResults);
       setIsLoading(false);
-    }
+    }, 500); // Fake delay of 500ms
   };
+
   const handleChange = (e: { target: { value: any } }) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -148,39 +143,27 @@ const Navbar: React.FC = () => {
                 value={searchTerm}
                 onChange={handleChange}
                 placeholder="Search..."
-                className="border px-4 py-2 border-slate-600 text-   rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
+                className="border px-4 py-2 border-slate-600 text-black rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
               />
             </div>
             {/* Results dropdown */}
             {searchTerm && (
               <div className="absolute top-12 left-0 right-0 bg-white border border-slate-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
                 {isLoading ? (
-                  <p className="text-center py-2 text-gray-500 animate-pulse">
-                    Loading...
-                  </p>
+                  <p className="text-center py-2">Loading...</p>
                 ) : results.length > 0 ? (
-                  <ul className="divide-y divide-gray-200">
-                    {results.map((result: any, index: any) => (
-                      <Link href={`/product/${result?.ID}`}>
-                        <li
-                          key={index}
-                          className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
-                          onClick={() => setSearchTerm("")} // Optional: Handle result click
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{result?.product_name || "No Name"}</span>
-                            <span className="text-xs text-gray-500">
-                              {result?.price ? `Ksh ${result.price}` : ""}
-                            </span>
-                          </div>
-                        </li>
-                      </Link>
-                    ))}
-                  </ul>
+                  results.map((result, index) => (
+                    <div
+                      key={index}
+                      className="px-4 py-2 hover:bg-slate-100 cursor-pointer text-sm text-slate-700"
+                      onClick={() => alert(`You selected: ${result}`)}
+                    >
+                      {result}
+                    </div>
+                  ))
                 ) : (
                   <p className="text-center py-2 text-slate-500">
-                    No results found for{" "}
-                    <span className="font-semibold">{searchTerm}</span>
+                    No results found
                   </p>
                 )}
               </div>

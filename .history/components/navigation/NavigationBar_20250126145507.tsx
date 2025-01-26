@@ -165,7 +165,7 @@ const Navbar: React.FC = () => {
                         <li
                           key={index}
                           className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
-                          onClick={() => setSearchTerm("")} // Optional: Handle result click
+                          onClick={() => se} // Optional: Handle result click
                         >
                           <div className="flex items-center justify-between">
                             <span>{result?.product_name || "No Name"}</span>

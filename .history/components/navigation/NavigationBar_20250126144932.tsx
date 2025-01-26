@@ -155,32 +155,18 @@ const Navbar: React.FC = () => {
             {searchTerm && (
               <div className="absolute top-12 left-0 right-0 bg-white border border-slate-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
                 {isLoading ? (
-                  <p className="text-center py-2 text-gray-500 animate-pulse">
-                    Loading...
-                  </p>
+                  <p className="text-center py-2">Loading...</p>
                 ) : results.length > 0 ? (
-                  <ul className="divide-y divide-gray-200">
-                    {results.map((result: any, index: any) => (
-                      <Link href={`/product/${result?.ID}`}>
-                        <li
-                          key={index}
-                          className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
-                          onClick={() => setSearchTerm("")} // Optional: Handle result click
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{result?.product_name || "No Name"}</span>
-                            <span className="text-xs text-gray-500">
-                              {result?.price ? `Ksh ${result.price}` : ""}
-                            </span>
-                          </div>
-                        </li>
-                      </Link>
+                  <ul className="mt-2">
+                    {results.map((result, index) => (
+                      <li key={index} className="text-sm text-gray-700 py-1">
+                        {result?.product_name || "No Name"}
+                      </li>
                     ))}
                   </ul>
                 ) : (
                   <p className="text-center py-2 text-slate-500">
-                    No results found for{" "}
-                    <span className="font-semibold">{searchTerm}</span>
+                    No results found
                   </p>
                 )}
               </div>

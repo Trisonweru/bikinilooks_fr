@@ -14,6 +14,7 @@ import { useAppCtx } from "@/pages/context/AppContext";
 import { useRouter } from "next/router";
 import getToken from "@/lib/getToken";
 import logoutUser from "@/lib/logoutUser";
+import axios from "axios";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -89,6 +90,41 @@ const Navbar: React.FC = () => {
     setTkn(token);
   }, []);
 
+  const [searchTerm, setSearchTerm] = useState(""); // Holds the search term
+  const [results, setResults] = useState([]); // Holds the search results
+  const [isLoading, setIsLoading] = useState(false); // Indicates loading state
+  const [error, setError] = useState<string | null>(null);
+  console.log(error);
+
+  const handleSearch = async (query: string) => {
+    if (!query) {
+      setResults([]); // Clear results if the query is empty
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null); // Reset error before the search
+
+    try {
+      const res = await axios.post(`/api/search`, { term: query });
+
+      console.log(res?.data?.data?.payload);
+
+      // const data = await response.json();
+
+      // Assuming your API returns a payload in the format { payload: [...] }
+      setResults(res?.data?.data?.payload || []);
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleChange = (e: { target: { value: any } }) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    handleSearch(value);
+  };
   return (
     <nav
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
@@ -105,11 +141,37 @@ const Navbar: React.FC = () => {
           </button>
         </div>
         <div className="hidden md:flex items-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border px-4 py-2 border-slate-600 rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
-          />
+          <div className="relative">
+            <div className="hidden md:flex items-center">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleChange}
+                placeholder="Search..."
+                className="border px-4 py-2 border-slate-600 text-   rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
+              />
+            </div>
+            {/* Results dropdown */}
+            {searchTerm && (
+              <div className="absolute top-12 left-0 right-0 bg-white border border-slate-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
+                {isLoading ? (
+                  <p className="text-center py-2">Loading...</p>
+                ) : results.length > 0 ? (
+                  <ul className="mt-2">
+                    {results.map((result: any, index: any) => (
+                      <li key={index} className="text-sm text-gray-700 py-1">
+                        {result?.product_name || "No Name"}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-center py-2 text-slate-500">
+                    No results found
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex items-center justify-center flex-grow lg:flex-grow-0">
           <Link href={"/"}>
@@ -187,7 +249,7 @@ const Navbar: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <div>
+                  <div className="text-black">
                     {items?.map((item) => (
                       <div
                         key={item.id}
