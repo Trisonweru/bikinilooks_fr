@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
                 value={searchTerm}
                 onChange={handleChange}
                 placeholder="Search..."
-                className="border px-4 text-black py-2 border-slate-600 text-   rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
+                className="border px-4 py-2 border-slate-600 text-   rounded-full text-sm w-full focus:border-[#752A78] focus:outline-none focus:ring-1 focus:ring-slate-600"
               />
             </div>
             {/* Results dropdown */}
@@ -164,7 +164,7 @@ const Navbar: React.FC = () => {
                       <Link href={`/product/${result?.ID}`}>
                         <li
                           key={index}
-                          className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer transition"
+                          className="px-4 py-2 text-black text-sm  hover:bg-gray-100 hover:cursor-pointer transition"
                           onClick={() => setSearchTerm("")} // Optional: Handle result click
                         >
                           <div className="flex items-center justify-between">
