@@ -161,9 +161,9 @@ export default function Form() {
   const handleSubmit2 = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("image", formData.image as unknown as File);
-    data.append("token", tkn);
+    // const data = new FormData();
+    // data.append("image", formData.image as unknown as File);
+    // data.append("token", tkn);
 
     try {
       const response = await fetch("/api/addThemeImage", {

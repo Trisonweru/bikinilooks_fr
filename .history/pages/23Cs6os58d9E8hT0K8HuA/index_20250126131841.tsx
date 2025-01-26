@@ -28,7 +28,7 @@ import {
 import { ImSpinner2 } from "react-icons/im";
 import fetcher from "../../lib/fetcher";
 import getToken from "../../lib/getToken";
-import logoutUser from "../lib/logoutUser";
+import logoutUser from "../../lib/logoutUser";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -161,14 +161,20 @@ export default function Form() {
   const handleSubmit2 = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("image", formData.image as unknown as File);
-    data.append("token", tkn);
+    // const data = new FormData();
+    // data.append("image", formData.image as unknown as File);
+    // data.append("token", tkn);
+
+    const data = {
+      discountType: formData.discountType,
+      image: formData.image, // Assuming this is already a base64 or URL string
+      token: tkn,
+    };
 
     try {
       const response = await fetch("/api/addThemeImage", {
         method: "POST",
-        body: data,
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -219,7 +225,7 @@ export default function Form() {
     }
   };
 
-  const [loading, setLoading] = useState<any>(false);
+  const [loading, setLoading] = useState<any>(false); //comments
 
   const getProducts = async () => {
     setLoading(true);
@@ -243,7 +249,16 @@ export default function Form() {
     }
   };
 
-  const handleDelete = async (id: any) => {};
+  const handleDelete = async (id: any) => {
+    const res = await fetcher("/api/delete", {
+      id: id,
+      token: tkn,
+    });
+    if (res?.data?.status == 200) {
+      getProducts();
+      alert("Deleted successfully!");
+    }
+  };
 
   const columns: GridColDef[] = [
     { field: "ID", headerName: "ID", width: 80 },

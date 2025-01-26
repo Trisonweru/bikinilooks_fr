@@ -161,9 +161,16 @@ export default function Form() {
   const handleSubmit2 = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("image", formData.image as unknown as File);
-    data.append("token", tkn);
+    // const data = new FormData();
+    // data.append("image", formData.image as unknown as File);
+    // data.append("token", tkn);
+
+    const data = {
+     
+      discountType: formData.discountType,
+      image: formData.image, // Assuming this is already a base64 or URL string
+      token: tkn,
+    };
 
     try {
       const response = await fetch("/api/addThemeImage", {
@@ -245,12 +252,12 @@ export default function Form() {
 
   const handleDelete = async (id: any) => {
     const res = await fetcher("/api/delete", {
-      productName: formData.productName,
+      id: id,
       token: tkn,
     });
     if (res?.data?.status == 200) {
-      getCategories();
-      alert("Category added successfully!");
+      getProducts();
+      alert("Deleted successfully!");
     }
   };
 
